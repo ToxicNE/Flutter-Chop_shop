@@ -1,6 +1,5 @@
-// import 'dart:js';
-
-import 'package:chop_shop/kopeika.dart';
+import 'package:chop_shop/description_screen.dart';
+import 'package:chop_shop/product.dart';
 import 'package:flutter/material.dart';
 
 
@@ -34,145 +33,51 @@ class MyApp extends StatelessWidget {
 
 class ProductGridState extends State<ProductGrid> {
 
+  List<Product> productList = [
+    Product(price: 85000, name: 'Lada (ВАЗ) 2101 \'Копейка\'', url: 'https://a.d-cd.net/73f08s-960.jpg', description: '"Копейка" - это неофициальное название первого автомобиля ВАЗ, который выпускался с 1970 по 1988 годы. Полное название модели - ВАЗ-2101. Этот автомобиль был создан на базе итальянского Fiat 124 и стал первым массовым автомобилем в СССР. "Копейка" была очень популярна благодаря своей надежности, простоте обслуживания и доступности.'),
+    Product(price: 98000, name: 'Lada (ВАЗ) 2102 \'Двойка\'', url: 'https://a.d-cd.net/be06568s-960.jpg', description: '"Двойка" - это также неофициальное название автомобиля ВАЗ-2102, который выпускался с 1971 по 1986 годы. Это был универсал на базе модели ВАЗ-2101. Автомобиль отличался вместительным багажником и хорошей проходимостью, что делало его популярным среди населения. '),
+    Product(price: 270000, name: 'Lada (ВАЗ) 2103 \'Тройка\'', url: 'https://a.d-cd.net/VkAAAgNcaOA-1920.jpg', description: '"Тройка" - это неофициальное название автомобиля ВАЗ-2103, который выпускался с 1972 по 1984 годы. Это была более комфортабельная и дорогая версия "Копейки", которая отличалась более современным дизайном и улучшенной отделкой салона. Автомобиль был оснащен более мощным двигателем и имел более высокую максимальную скорость. "Тройка" также была очень популярна среди населения СССР.'),
+    Product(price: 212000, name: 'Lada (ВАЗ) 2104 \'Четвёрка\'', url: 'https://sportishka.com/uploads/posts/2023-11/1701232883_sportishka-com-p-chetverka-mashina-vkontakte-11.jpg', description: '"Четвёрка" - это неофициальное название автомобиля ВАЗ-2104, который выпускался с 1984 по 2012 годы. Это был универсал на базе модели ВАЗ-2105. Автомобиль отличался вместительным багажником и хорошей проходимостью, что делало его популярным среди населения. '),
+    Product(price: 125000, name: 'Lada (ВАЗ) 2105 \'Пятёрка\'', url: 'https://carsweek.ru/upload/iblock/5e5/5e5b710b976e13b3ea394c6f41e45260.jpg', description: '"Пятёрка" - это неофициальное название автомобиля ВАЗ-2105, который выпускался с 1980 по 2010 годы. Это был седан на базе модели ВАЗ-2103. Автомобиль отличался более современным дизайном и улучшенной отделкой салона. "Пятёрка" была очень популярна среди населения СССР и России.')
+  ];
+
+  void navigate(Product product) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return DescriptionScreen(product:product);
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
         crossAxisSpacing: 8.0,
         mainAxisSpacing: 8.0,
       ),
-      itemCount: 16,
+      itemCount: productList.length,
       itemBuilder: (BuildContext context, int index) {
+      return GestureDetector(
+        onTap: (){
+          navigate(productList[index]);
+        },
+        
 
-        List<Widget> screens = [
-          const Kopeyka(),
-          
-        ];
-        Future<void> navigateToScreen(BuildContext context) async {
-          final Widget screenToNavigate = screens[index];
-
-          await Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => screenToNavigate),
-          );
+        child: ProductCard(
+          imageUrl: productList[index].url,
+          productName: productList[index].name,
+          productPrice: productList[index].price,
+        )
+      );
+        
+        
         }
-
-
-        if (index == 0) {
-          return  ProductCard(
-            imageUrl: 'https://a.d-cd.net/73f08s-960.jpg',
-            productName: 'Lada (ВАЗ) 2101 \'Копейка\'',
-            productPrice: '85.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 1) {
-          return  ProductCard(
-            imageUrl: 'https://a.d-cd.net/be06568s-960.jpg',
-            productName: 'Lada (ВАЗ) 2102 \'Двойка\'',
-            productPrice: '98.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 2) {
-          return  ProductCard(
-            imageUrl: 'https://a.d-cd.net/VkAAAgNcaOA-1920.jpg',
-            productName: 'Lada (ВАЗ) 2103 \'Тройка\'',
-            productPrice: '270.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 3) {
-          return  ProductCard(
-            imageUrl: 'https://sportishka.com/uploads/posts/2023-11/1701232883_sportishka-com-p-chetverka-mashina-vkontakte-11.jpg',
-            productName: 'Lada (ВАЗ) 2104 \'Четвёрка\'',
-            productPrice: '212.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 4) {
-          return  ProductCard(
-            imageUrl: 'https://carsweek.ru/upload/iblock/5e5/5e5b710b976e13b3ea394c6f41e45260.jpg',
-            productName: 'Lada (ВАЗ) 2105 \'Пятёрка\'',
-            productPrice: '125.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 5) {
-          return  ProductCard(
-            imageUrl: 'https://a.d-cd.net/d9421ecs-1920.jpg',
-            productName: 'Lada (ВАЗ) 2106 \'Шестёрка\'',
-            productPrice: '130.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 6) {
-          return  ProductCard(
-            imageUrl: 'https://i.ytimg.com/vi/GcGSAxe7jjA/maxresdefault.jpg',
-            productName: 'Lada (ВАЗ) 2107 \'Семёрка\'',
-            productPrice: '112.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 7) {
-          return  ProductCard(
-            imageUrl: 'https://a.d-cd.net/189a9f5s-1920.jpg',
-            productName: 'Lada (ВАЗ) 2108 \'Восьмёрка\'',
-            productPrice: '80.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 8) {
-          return  ProductCard(
-            imageUrl: 'https://a.d-cd.net/e69a405s-1920.jpg',
-            productName: 'Lada (ВАЗ) 2109 \'Девятка\'',
-            productPrice: '100.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 9) {
-          return  ProductCard(
-            imageUrl: 'https://a.d-cd.net/5d03a08s-960.jpg',
-            productName: 'Lada (ВАЗ) 2110 \'Десятка\'',
-            productPrice: '110.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 10) {
-          return  ProductCard(
-            imageUrl: 'https://avatars.mds.yandex.net/get-autoru-vos/11388278/3d82ff40df1943c8ed04fbafef9e7db6/1200x900',
-            productName: 'Lada (ВАЗ) 2121 (4x4) \'Нива\'',
-            productPrice: '540.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 11) {
-          return  ProductCard(
-            imageUrl: 'https://wp-s.ru/wallpapers/1/5/380802298673819/mashina-priora-krasnaya-na-snezhnom-fone.jpg',
-            productName: 'Lada (ВАЗ) Priora Ⅰ',
-            productPrice: '259.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 12) {
-          return  ProductCard(
-            imageUrl: 'https://sportishka.com/uploads/posts/2022-05/1651354311_58-sportishka-com-p-lada-granta-standart-mashini-krasivo-foto-60.jpg',
-            productName: 'Lada (ВАЗ) Granta',
-            productPrice: '490.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 13) {
-          return  ProductCard(
-            imageUrl: 'https://sportishka.com/uploads/posts/2022-11/1667543323_42-sportishka-com-p-lada-granta-kross-krasnaya-krasivo-45.jpg',
-            productName: 'Lada (ВАЗ) Granta Cross',
-            productPrice: '1.150.000₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 14) {
-          return  ProductCard(
-            imageUrl: 'https://627400.ru/wp-content/uploads/a/c/7/ac79c4b46679726b9ef2f19431307212.jpeg',
-            productName: 'Lada (ВАЗ) Vesta',
-            productPrice: '1.098.700₽',
-            toScreen: navigateToScreen,
-          );
-        } else if (index == 15) {
-          return  ProductCard(
-            imageUrl: 'https://avatars.dzeninfra.ru/get-zen_doc/2355127/pub_6188255bbb38fc1b2a52ceba_618825a4e530b926ae35eadc/scale_1200',
-            productName: 'Lada (ВАЗ) Vesta Cross',
-            productPrice: '1.407.200₽',
-            toScreen: navigateToScreen,
-          );
-        }
-        return Container(); 
-      },
     );
   }
 }
@@ -180,8 +85,8 @@ class ProductGridState extends State<ProductGrid> {
 class ProductCard extends StatelessWidget {
   final String imageUrl;
   final String productName;
-  final String productPrice;
-  final Function(BuildContext) toScreen;
+  final int productPrice;
+
   
 
   const ProductCard({
@@ -189,43 +94,38 @@ class ProductCard extends StatelessWidget {
     required this.imageUrl,
     required this.productName,
     required this.productPrice,
-    required this.toScreen,
+
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: InkWell(
-        onTap: () {
-          toScreen(context);
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    productName,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Цена: $productPrice',
-                  ),
-                ],
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  productName,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'Цена: $productPrice',
+                ),
+              ],
             ),
-          ],
-          
-        ),
+          ),
+        ],
+        
       ),
     );
   }
