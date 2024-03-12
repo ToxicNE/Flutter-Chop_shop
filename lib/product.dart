@@ -6,7 +6,7 @@ class Product{
     required this.description,
   });
 
-  int price;
+  String price;
   String name;
   String url;
   String description;
