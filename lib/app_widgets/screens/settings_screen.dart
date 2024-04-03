@@ -1,5 +1,7 @@
+import 'package:chop_shop/functions/get_list_of_cars.dart';
+import 'package:chop_shop/functions/get_some_text.dart';
 import 'package:chop_shop/ui/colors.dart';
-import 'package:chop_shop/widgets/widgets/drawer.dart';
+import 'package:chop_shop/app_widgets/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -8,6 +10,8 @@ class SettingsScreen extends StatefulWidget {
   @override
   SettingsScreenState createState() => SettingsScreenState();
 }
+
+
 
 class SettingsScreenState extends State<SettingsScreen> {
   @override
@@ -109,6 +113,16 @@ class SettingsScreenState extends State<SettingsScreen> {
             ),
             child: const Text("Очистить память"),
           ),
+          ElevatedButton(
+            onPressed: () {
+              getSomeTextRequestAlertDialog(context);
+            }, child: const Text('get some text from server'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              getListOfCarsAlertDialog(context);
+            }, child: const Text('get list of cars from server'),
+          )
         ],
       ),
     );

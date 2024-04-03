@@ -1,4 +1,4 @@
-import 'package:chop_shop/description_screen.dart';
+import 'package:chop_shop/app_widgets/screens/description_screen.dart';
 import 'package:chop_shop/main.dart';
 import 'package:chop_shop/ui/colors.dart';
 import 'package:flutter/material.dart';

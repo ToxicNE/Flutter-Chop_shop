@@ -1,7 +1,7 @@
-import 'package:chop_shop/add_card_screen.dart';
+import 'package:chop_shop/app_widgets/screens/add_card_screen.dart';
 import 'package:chop_shop/gridview_card.dart';
 import 'package:chop_shop/ui/colors.dart';
-import 'package:chop_shop/widgets/widgets/drawer.dart';
+import 'package:chop_shop/app_widgets/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
